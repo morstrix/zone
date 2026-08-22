@@ -345,10 +345,20 @@ document.addEventListener('DOMContentLoaded', () => {
     window.playUiMenuBlip = playUiMenuBlip;
 
     function openModal(id, withSound = true) {
-        document.getElementById(id)?.classList.add('active');
-        if (withSound) playUiMenuBlip();
+        const modal = document.getElementById(id);
+        if (modal) {
+            modal.classList.add('active');
+            modal.style.display = 'flex';
+            if (withSound) playUiMenuBlip();
+        }
     }
-    function closeModal(id) { document.getElementById(id)?.classList.remove('active'); }
+    function closeModal(id) {
+        const modal = document.getElementById(id);
+        if (modal) {
+            modal.classList.remove('active');
+            modal.style.display = 'none';
+        }
+    }
 
     // ===== CAROUSEL (twitter) =====
     const carousel = document.getElementById('mainCarousel');
@@ -357,10 +367,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const imgs = carousel.querySelectorAll('img');
         carouselInterval = setInterval(() => {
             const active = carousel.querySelector('.active');
-            let next = active.nextElementSibling;
+            let next = active ? active.nextElementSibling : null;
             if (!next) next = imgs[0];
-            active.classList.remove('active');
-            next.classList.add('active');
+            if (active) active.classList.remove('active');
+            if (next) next.classList.add('active');
         }, 3000);
         carousel.addEventListener('click', () => clearInterval(carouselInterval));
     }
@@ -402,18 +412,23 @@ document.addEventListener('DOMContentLoaded', () => {
     async function getFirestoreDb() {
         if (!firebaseDbPromise) {
             firebaseDbPromise = (async () => {
-                const { initializeApp, getApps, getApp } = await import('https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js');
-                const { getFirestore } = await import('https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js');
-                const firebaseConfig = {
-                    apiKey: 'AIzaSyD7HW4Ec9n3vl5l_WgTSwiK5NpyQYE6tlU',
-                    authDomain: 'helper-e10b2.firebaseapp.com',
-                    projectId: 'helper-e10b2',
-                    storageBucket: 'helper-e10b2.firebasestorage.app',
-                    messagingSenderId: '131536876451',
-                    appId: '1:131536876451:web:eeaef494c83dfc4849e016'
-                };
-                const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-                return getFirestore(app);
+                try {
+                    const { initializeApp, getApps, getApp } = await import('https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js');
+                    const { getFirestore } = await import('https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js');
+                    const firebaseConfig = {
+                        apiKey: 'AIzaSyD7HW4Ec9n3vl5l_WgTSwiK5NpyQYE6tlU',
+                        authDomain: 'helper-e10b2.firebaseapp.com',
+                        projectId: 'helper-e10b2',
+                        storageBucket: 'helper-e10b2.firebasestorage.app',
+                        messagingSenderId: '131536876451',
+                        appId: '1:131536876451:web:eeaef494c83dfc4849e016'
+                    };
+                    const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+                    return getFirestore(app);
+                } catch (e) {
+                    console.warn('Firebase init failed', e);
+                    return null;
+                }
             })();
         }
         return firebaseDbPromise;
@@ -424,6 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!preview) return;
         try {
             const db = await getFirestoreDb();
+            if (!db) return;
             const { doc, getDoc } = await import('https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js');
             const currentSnap = await getDoc(doc(db, 'global_canvas', 'current'));
             if (currentSnap.exists()) {
@@ -453,6 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = '<p class="text-secondary">Loading feed...</p>';
         try {
             const db = await getFirestoreDb();
+            if (!db) { container.innerHTML = '<p class="text-secondary">Feed unavailable</p>'; return; }
             const { collection, getDocs, query, orderBy, limit } = await import('https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js');
             const historyRef = collection(db, 'global_canvas', 'current', 'history');
             const feedQuery = query(historyRef, orderBy('timestamp', 'desc'), limit(20));
@@ -514,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadVoices();
     }
     function speakWithSpeechSynthesis(text) {
-        if (!text.trim()) { ttsStatus.textContent = 'Введите текст'; return; }
+        if (!text.trim()) { if (ttsStatus) ttsStatus.textContent = 'Введите текст'; return; }
         speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         const selectedVoiceName = ttsVoiceSelect?.value;
@@ -523,9 +540,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (voice) utterance.voice = voice;
         }
         utterance.rate = 1.0; utterance.pitch = 1.0;
-        utterance.onstart = () => ttsStatus.textContent = '▶ Воспроизведение';
-        utterance.onend = () => ttsStatus.textContent = '';
-        utterance.onerror = e => ttsStatus.textContent = 'Ошибка: ' + e.error;
+        utterance.onstart = () => { if (ttsStatus) ttsStatus.textContent = '▶ Воспроизведение'; };
+        utterance.onend = () => { if (ttsStatus) ttsStatus.textContent = ''; };
+        utterance.onerror = e => { if (ttsStatus) ttsStatus.textContent = 'Ошибка: ' + e.error; };
         speechSynthesis.speak(utterance);
     }
     if (ttsSpeakBtn) ttsSpeakBtn.addEventListener('click', () => speakWithSpeechSynthesis(ttsTextInput.value));
@@ -624,9 +641,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.getElementById('drumReadBtn')?.addEventListener('click', () => {
                 const slide = SLIDES_DATA[currentIndex];
-                document.getElementById('wellnessPopupTitle').textContent = slide.title;
-                document.getElementById('wellnessPopupBody').textContent = slide.body;
-                document.getElementById('wellnessPopup')?.classList.add('active');
+                const titleEl = document.getElementById('wellnessPopupTitle');
+                const bodyEl = document.getElementById('wellnessPopupBody');
+                if (titleEl) titleEl.textContent = slide.title;
+                if (bodyEl) bodyEl.textContent = slide.body;
+                openModal('wellnessPopup');
                 window.playUiMenuBlip?.();
             });
 
@@ -710,15 +729,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        tabPanels.info?.classList.add('active');
-        if (tabPanels.info) tabPanels.info.style.display = 'block';
+        // По умолчанию показываем INFO
+        if (tabPanels.info) {
+            tabPanels.info.classList.add('active');
+            tabPanels.info.style.display = 'block';
+        }
+        if (tabPanels.lab) {
+            tabPanels.lab.style.display = 'none';
+        }
         currentTab = 'info';
     })();
 
     // ===== GENERIC MODAL TRIGGER =====
     document.querySelectorAll('[data-modal-trigger]').forEach(btn => {
         btn.addEventListener('click', () => {
-            document.getElementById(btn.dataset.modalTrigger)?.classList.add('active');
+            const modalId = btn.dataset.modalTrigger;
+            openModal(modalId);
             window.playUiMenuBlip?.();
         });
     });
@@ -782,3 +808,5 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = this.dataset.href;
         });
     });
+
+});
