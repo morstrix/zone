@@ -1198,16 +1198,6 @@ document.addEventListener('DOMContentLoaded', () => {
             window.playUiMenuBlip?.();
         });
 
-        prevBtn?.addEventListener('click', () => {
-            goPrev();
-            window.playUiMenuBlip?.();
-        });
-
-        nextBtn?.addEventListener('click', () => {
-            goNext();
-            window.playUiMenuBlip?.();
-        });
-
         document.addEventListener('keydown', (e) => {
             const drumWrap = document.getElementById('wellnessDrumWrap');
             if (!drumWrap || drumWrap.style.display === 'none') return;
