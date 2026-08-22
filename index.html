@@ -30,38 +30,43 @@
     <div class="journal-wrapper">
 
         <!-- ===== INFO TAB ===== -->
-<div class="tab-panel active" id="tab-info" data-tab-panel="info">
-    <div class="journal-vertical" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:calc(100vh - var(--top-panel-h) - 70px); padding:0;">
+        <div class="tab-panel active" id="tab-info" data-tab-panel="info">
+            <div class="journal-vertical" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:calc(100vh - var(--top-panel-h) - 70px); padding:0;">
 
-        <!-- Первый ряд: дайджест + Twitter + Telegram + архив -->
-        <div style="display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:14px; flex-wrap:wrap;">
-            <span class="text-secondary" style="font-size:12px; color:#888; letter-spacing:1px; text-transform:uppercase; white-space:nowrap;">
-                <span class="blink-dot">◈</span> дайджест
-            </span>
-            <button class="icon-action" type="button" data-modal-trigger="twitterModal" style="width:78px; padding:10px 6px;">
-                <img src="assets/twit.png" alt="Twitter / X" style="width:28px; height:28px; object-fit:contain; image-rendering:pixelated;">
-                <span class="icon-action-label" style="font-size:13px; color:var(--text-primary); text-transform:lowercase; letter-spacing:1px;">twitter</span>
-            </button>
-            <button class="icon-action" type="button" data-modal-trigger="telegramModal" style="width:78px; padding:10px 6px;">
-                <span class="icon-action-glyph" style="font-size:11px; color:#ffb7c7;">tg</span>
-                <span class="icon-action-label" style="font-size:13px; color:var(--text-primary); text-transform:lowercase; letter-spacing:1px;">telegram</span>
-            </button>
+                <!-- Первый ряд: дайджест + Twitter + Telegram -->
+                <div style="display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:20px; flex-wrap:wrap;">
+                    <span class="text-secondary" style="font-size:12px; color:#888; letter-spacing:1px; text-transform:uppercase; white-space:nowrap;">
+                        <span class="blink-dot">◈</span> дайджест
+                    </span>
+                    <button class="icon-action" type="button" data-modal-trigger="twitterModal" style="width:78px; padding:10px 6px;">
+                        <img src="assets/twit.png" alt="Twitter / X" style="width:28px; height:28px; object-fit:contain; image-rendering:pixelated;">
+                        <span class="icon-action-label" style="font-size:13px; color:var(--text-primary); text-transform:lowercase; letter-spacing:1px;">twitter</span>
+                    </button>
+                    <button class="icon-action" type="button" data-modal-trigger="telegramModal" style="width:78px; padding:10px 6px;">
+                        <span class="icon-action-glyph" style="font-size:11px; color:#ffb7c7;">tg</span>
+                        <span class="icon-action-label" style="font-size:13px; color:var(--text-primary); text-transform:lowercase; letter-spacing:1px;">telegram</span>
+                    </button>
+                </div>
+
+                <!-- Второй ряд: Instagram + TikTok -->
+                <div style="display:flex; align-items:center; justify-content:center; gap:14px;">
+
+                    <!-- Instagram → открывает модалку -->
+                    <button class="icon-action" type="button" data-modal-trigger="instagramModal" style="width:78px; padding:10px 6px;">
+                        <img src="assets/insta.png" alt="Instagram" style="width:28px; height:28px; object-fit:contain; image-rendering:pixelated;">
+                        <span class="icon-action-label" style="font-size:13px; color:var(--text-primary); text-transform:lowercase; letter-spacing:1px;">insta</span>
+                    </button>
+
+                    <!-- TikTok → открывает модалку -->
+                    <button class="icon-action" type="button" data-modal-trigger="tiktokModal" style="width:78px; padding:10px 6px;">
+                        <span class="icon-action-glyph" style="font-size:11px; color:#ffb7c7;">tt</span>
+                        <span class="icon-action-label" style="font-size:13px; color:var(--text-primary); text-transform:lowercase; letter-spacing:1px;">tiktok</span>
+                    </button>
+
+                </div>
+
+            </div>
         </div>
-
-        <!-- Второй ряд: Instagram + TikTok -->
-        <div style="display:flex; align-items:center; justify-content:center; gap:14px;">
-            <a href="#" class="icon-action" style="width:78px; padding:10px 6px;">
-                <img src="assets/insta.png" alt="Instagram" style="width:28px; height:28px; object-fit:contain; image-rendering:pixelated;">
-                <span class="icon-action-label" style="font-size:13px; color:var(--text-primary); text-transform:lowercase; letter-spacing:1px;">insta</span>
-            </a>
-            <a href="#" class="icon-action" style="width:78px; padding:10px 6px;">
-                <span class="icon-action-glyph" style="font-size:11px; color:#ffb7c7;">tt</span>
-                <span class="icon-action-label" style="font-size:13px; color:var(--text-primary); text-transform:lowercase; letter-spacing:1px;">tiktok</span>
-            </a>
-        </div>
-
-    </div>
-</div>
 
         <!-- ===== LAB TAB ===== -->
         <div class="tab-panel" id="tab-lab" data-tab-panel="lab">
@@ -183,54 +188,6 @@
         </div>
     </div>
 
-    <div id="tagDevelopmentModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-title-text">#development</span>
-                <button class="modal-close-btn" data-modal="tagDevelopmentModal">✜</button>
-            </div>
-            <div class="modal-inner modal-inner-centered">
-                <p class="text-secondary">development work in progress.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="tagDiygearModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-title-text">#diygear</span>
-                <button class="modal-close-btn" data-modal="tagDiygearModal">✜</button>
-            </div>
-            <div class="modal-inner modal-inner-centered">
-                <p class="text-secondary">diy gear archive coming soon.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="tagTattooModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-title-text">#tattoo</span>
-                <button class="modal-close-btn" data-modal="tagTattooModal">✜</button>
-            </div>
-            <div class="modal-inner modal-inner-centered">
-                <p class="text-secondary">tattoo archive coming soon.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="tagBarberingModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-title-text">#barbering</span>
-                <button class="modal-close-btn" data-modal="tagBarberingModal">✜</button>
-            </div>
-            <div class="modal-inner modal-inner-centered">
-                <p class="text-secondary">barbering archive coming soon.</p>
-            </div>
-        </div>
-    </div>
-
     <div id="donateDisclaimerModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -308,6 +265,9 @@
                             <div style="padding:20px; text-align:center;">
                                 <p class="text-secondary" style="font-size:16px;">Музыка, подкасты, плейлисты, эфиры.</p>
                                 <p class="text-secondary" style="font-size:14px; margin-top:12px; color:#666;">Атмосферные подборки в Telegram.</p>
+                                <a href="https://youtube.com/playlist?list=PLi1Z1_6srFOvdJ5HrgSMoGpMnpoTrx56_" target="_blank" class="universal-btn" style="text-decoration:none; margin-top:16px; display:inline-block;">
+                                    <span class="btn-inner"><span>OPEN PLAYLIST</span></span>
+                                </a>
                             </div>
                         </div>
 
@@ -350,6 +310,43 @@
         </div>
     </div>
 
+    <!-- Instagram Modal -->
+    <div id="instagramModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title-text">instagram</span>
+                <button class="modal-close-btn" data-modal="instagramModal">✜</button>
+            </div>
+            <div class="modal-inner" style="display:flex; flex-direction:column; align-items:center; gap:16px; padding:24px;">
+                <div style="display:flex; gap:16px;">
+                    <a href="https://www.instagram.com/grimexframe" target="_blank" class="universal-btn" style="text-decoration:none;" data-modal-close="instagramModal">
+                        <span class="btn-inner"><span>EX</span></span>
+                    </a>
+                    <a href="https://www.instagram.com/mrsv.ad" target="_blank" class="universal-btn" style="text-decoration:none;" data-modal-close="instagramModal">
+                        <span class="btn-inner"><span>ADA</span></span>
+                    </a>
+                </div>
+                <p class="text-secondary" style="font-size:14px; margin:0;">выбери аккаунт</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TikTok Modal -->
+    <div id="tiktokModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title-text">tiktok</span>
+                <button class="modal-close-btn" data-modal="tiktokModal">✜</button>
+            </div>
+            <div class="modal-inner" style="display:flex; flex-direction:column; align-items:center; gap:16px; padding:24px;">
+                <a href="https://www.tiktok.com/@grimexframe" target="_blank" class="universal-btn" style="text-decoration:none;" data-modal-close="tiktokModal">
+                    <span class="btn-inner"><span>OPEN</span></span>
+                </a>
+                <p class="text-secondary" style="font-size:14px; margin:0;">перейти в TikTok</p>
+            </div>
+        </div>
+    </div>
+
     <div id="stubModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -374,6 +371,18 @@
         </div>
     </div>
 
+    <div id="supportModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title-text">SUPPORT</span>
+                <button class="modal-close-btn" data-modal="supportModal">✜</button>
+            </div>
+            <div class="modal-inner support-modal-inner">
+                <script async src="https://telegram.org/js/telegram-widget.js?23" data-telegram-discussion="morstrix/71" data-comments-limit="20" data-width="100%"></script>
+            </div>
+        </div>
+    </div>
+
     <div id="wellnessPopup" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -385,6 +394,14 @@
             </div>
         </div>
     </div>
+
+    <!-- Удалённые модалки (оставляем закомментированными, чтобы не ломались ссылки) -->
+    <!--
+    <div id="tagDevelopmentModal" class="modal-overlay">...</div>
+    <div id="tagDiygearModal" class="modal-overlay">...</div>
+    <div id="tagTattooModal" class="modal-overlay">...</div>
+    <div id="tagBarberingModal" class="modal-overlay">...</div>
+    -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
