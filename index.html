@@ -7,6 +7,7 @@
     <title>MORSTRIX | PORTAL</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 
 <body>
@@ -282,24 +283,19 @@
     </div>
 
     <div id="youtubeModal" class="modal-overlay">
-    <div class="modal-content youtube-modal-content">
-        <div class="modal-header">
-            <span class="modal-title-text">youtube music</span>
-            <button class="modal-close-btn" data-modal="youtubeModal">✜</button>
-        </div>
-        <div class="modal-inner youtube-modal-inner">
-            <div class="youtube-player-wrap">
-                <iframe 
-                    src="https://www.youtube.com/embed?listType=playlist&list=PLi1Z1_6srFOvdJ5HrgSMoGpMnpoTrx56_&modestbranding=1&rel=0&color=white&theme=dark"
-                    title="MORSTRIX music playlist"
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+        <div class="modal-content youtube-modal-content">
+            <div class="modal-header">
+                <span class="modal-title-text">youtube music</span>
+                <button class="modal-close-btn" data-modal="youtubeModal">✜</button>
             </div>
-            <p class="text-secondary" style="text-align:center; margin-top:12px; font-size:14px;">MORSTRIX music playlist</p>
+            <div class="modal-inner youtube-modal-inner">
+                <div class="youtube-player-wrap" id="ytPlayerWrap">
+                    <div id="ytPlayer"></div>
+                </div>
+                <p class="text-secondary" style="text-align:center; margin-top:12px; font-size:14px;">MORSTRIX music playlist</p>
+            </div>
         </div>
     </div>
-</div>
 
     <div id="telegramModal" class="modal-overlay">
         <div class="modal-content" style="max-width:600px;">
