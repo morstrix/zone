@@ -232,8 +232,8 @@
         .drum-scene {
             position: relative;
             perspective: 800px;
-            width: min(180px, 55vw);
-            height: min(180px, 30vh);
+            width: min(205px, 55vw);
+            height: min(205px, 205px);
             flex-shrink: 0;
             z-index: 1;
         }
@@ -306,9 +306,141 @@
 
         /* READ button */
         .drum-read-btn {
-            margin-top: 30px;
+            margin-top: 16px;
             z-index: 1;
             position: relative;
+        }
+
+        /* Telegram forum modal — restored original proportions */
+        #telegramModal .modal-content {
+            width: min(500px, calc(100% - 8px));
+            max-height: none;
+        }
+
+        #telegramModal .modal-header {
+            padding: 14px 16px;
+        }
+
+        #telegramModal .modal-inner {
+            padding: 0;
+        }
+
+        #telegramModal .forum-embedded {
+            min-height: 350px;
+            border-top: 1px solid #25252d;
+            border-bottom: 1px solid #25252d;
+        }
+
+        #telegramModal .forum-tabs-panel-embedded {
+            width: 64px;
+            flex: 0 0 64px;
+            padding: 0;
+        }
+
+        #telegramModal .forum-tab {
+            min-height: 58px;
+            padding: 6px 4px;
+        }
+
+        #telegramModal .forum-tab img {
+            width: 28px;
+            height: 28px;
+        }
+
+        #telegramModal .forum-tab small {
+            display: block;
+            font-family: var(--font-secondary);
+            font-size: 8px;
+            line-height: 1;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        #telegramModal .forum-tab.active small {
+            color: #fff;
+        }
+
+        #telegramModal .forum-tab-glyph {
+            display: block;
+            height: 28px;
+            font-size: 23px;
+            line-height: 28px;
+        }
+
+        #telegramModal .forum-content-embedded {
+            min-width: 0;
+            padding: 15px 12px 12px;
+        }
+
+        #telegramModal .forum-content-embedded h3 {
+            margin: 0 0 8px;
+        }
+
+        #telegramModal .wellness-drum-wrap {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            flex: none;
+            padding-top: 0;
+            overflow: visible;
+        }
+
+        #telegramModal .drum-nav-btn {
+            position: absolute;
+            top: 102px;
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border: 1px solid #3d3d46;
+            background: #09090c;
+            color: #b972a0;
+            cursor: pointer;
+            z-index: 3;
+            font-family: var(--font-primary);
+            font-size: 10px;
+        }
+
+        #telegramModal #drumPrev {
+            left: 0;
+        }
+
+        #telegramModal #drumNext {
+            right: 0;
+        }
+
+        #telegramModal .drum-dots {
+            margin-top: 10px;
+        }
+
+        #telegramModal .telegram-enter {
+            display: flex;
+            justify-content: center;
+            padding: 14px 12px 16px;
+        }
+
+        @media (max-width: 420px) {
+            #telegramModal .forum-embedded {
+                min-height: 340px;
+            }
+
+            #telegramModal .forum-tabs-panel-embedded {
+                width: 58px;
+                flex-basis: 58px;
+            }
+
+            #telegramModal .forum-content-embedded {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            #telegramModal .drum-scene {
+                width: min(180px, 53vw);
+                height: min(180px, 180px);
+            }
+
+            #telegramModal .drum-nav-btn {
+                top: 92px;
+            }
         }
 
         /* Wellness popup */
@@ -1356,23 +1488,63 @@
 
     <!-- TELEGRAM MODAL — wellness drum moved here -->
     <div id="telegramModal" class="modal-overlay">
-        <div class="modal-content">
+        <div class="modal-content telegram-modal-content">
             <div class="modal-header">
                 <span class="modal-title-text">telegram</span>
                 <button class="modal-close-btn" data-modal="telegramModal">✜</button>
             </div>
             <div class="modal-inner">
-                <div class="wellness-drum-wrap" id="wellnessDrumWrap">
-                    <div class="drum-scene">
-                        <div class="drum-cylinder" id="drumCylinder"></div>
-                    </div>
-                    <div class="drum-dots" id="drumDots"></div>
-                    <div class="drum-read-btn">
-                        <button class="universal-btn" id="drumReadBtn">
-                            <span class="btn-inner"><span>READ</span></span>
+                <div class="forum-embedded">
+                    <div class="forum-tabs-panel-embedded">
+                        <button class="forum-tab active" type="button" data-tab="wellness">
+                            <img src="assets/forum/wellness.svg" alt="Wellness">
+                            <small>wellness</small>
+                        </button>
+                        <button class="forum-tab" type="button" data-tab="radio">
+                            <img src="assets/forum/radio.svg" alt="Radio">
+                            <small>radio</small>
+                        </button>
+                        <button class="forum-tab" type="button" data-tab="design">
+                            <img src="assets/forum/design.svg" alt="Design">
+                            <small>design</small>
+                        </button>
+                        <button class="forum-tab" type="button" data-tab="tattoo">
+                            <img src="assets/forum/tattoo.svg" alt="Tattoo">
+                            <small>tattoo</small>
+                        </button>
+                        <button class="forum-tab" type="button" data-tab="diygear">
+                            <img src="assets/forum/diygear.svg" alt="DIY gear">
+                            <small>diy gear</small>
+                        </button>
+                        <button class="forum-tab" type="button" data-tab="barbering">
+                            <span class="forum-tab-glyph" aria-hidden="true">💈</span>
+                            <small>barbering</small>
                         </button>
                     </div>
+                    <div class="forum-content-embedded">
+                        <h3 id="forumTitleEmbedded">WELLNESS</h3>
+                        <div class="wellness-drum-wrap" id="wellnessDrumWrap">
+                            <button class="drum-nav-btn" id="drumPrev" type="button" aria-label="Previous">◀</button>
+                            <div class="drum-scene">
+                                <div class="drum-cylinder" id="drumCylinder"></div>
+                            </div>
+                            <button class="drum-nav-btn" id="drumNext" type="button" aria-label="Next">▶</button>
+                            <div class="drum-dots" id="drumDots"></div>
+                            <div class="drum-read-btn">
+                                <button class="universal-btn" id="drumReadBtn">
+                                    <span class="btn-inner"><span>READ</span></span>
+                                </button>
+                            </div>
+                        </div>
+                        <p id="forumTextEmbedded" style="display:none;"></p>
+                    </div>
                 </div>
+            </div>
+            <div class="telegram-enter">
+                <button class="universal-btn" data-href="https://t.me/+n5Qg8d2h9qliMmRi"
+                    data-modal-close="telegramModal">
+                    <span class="btn-inner"><span>ENTER</span></span>
+                </button>
             </div>
         </div>
     </div>
