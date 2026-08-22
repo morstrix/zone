@@ -246,22 +246,68 @@ button, a, .universal-btn, .donate-label, [data-modal-trigger], [data-href] { to
 .hashtag-row { text-align:center; padding:2px 0 0; }
 .hashtag { font-size:16px; color:var(--text-secondary); font-family:var(--font-secondary); text-shadow:1px 1px 0 #4b3d3d, 2px 2px 0 #3d2a2f!important; }
 
-/* Простая swipe-карусель для Telegram */
-.swipe-carousel {
-    width:100%; max-width:280px; margin:0 auto; overflow:hidden;
-    touch-action:pan-y pinch-zoom; cursor:grab;
+/* YouTube modal */
+.youtube-modal-inner { padding:12px; }
+.youtube-player-wrap {
+    width:100%; aspect-ratio:16/9; background:#080808;
+    border:2px solid #8B3A3A;
 }
-.swipe-carousel:active { cursor:grabbing; }
-.swipe-track { display:flex; transition:transform 0.3s ease; will-change:transform; }
+.youtube-player-wrap iframe { display:block; width:100%; height:100%; border:0; }
+
+/* Telegram forum tabs */
+.tg-forum-tabs {
+    width:70px; min-width:70px; background:#0a0a0d; display:flex; flex-direction:column;
+    border-right:1px solid #2f2f38; border-top:1px solid #2f2f38;
+    overflow-y:auto; max-height:60vh;
+}
+.tg-forum-tab {
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:12px 4px; cursor:pointer; border-bottom:1px solid #1a1a22;
+    border-left:3px solid transparent; transition:background 0.15s, border-color 0.15s; gap:4px;
+}
+.tg-forum-tab span:first-child { font-size:20px; line-height:1; }
+.tg-tab-label {
+    font-family:'Tiny5',monospace; font-size:9px; color:#6c6c76;
+    text-transform:lowercase; letter-spacing:0.5px; text-align:center; line-height:1.2;
+}
+.tg-forum-tab:hover { background:#131318; border-left-color:#3d3d48; }
+.tg-forum-tab.active { background:#131318; border-left:3px solid #a84d6b; }
+.tg-forum-tab.active .tg-tab-label { color:#f0f0f2; }
+
+.tg-forum-content {
+    flex:1; min-width:0; max-height:60vh; overflow-y:auto;
+    border-top:1px solid #2f2f38;
+}
+.tg-tab-content { display:none; padding-top:20px; }
+.tg-tab-content.active { display:block; }
+
+/* Wellness carousel */
+.carousel-arrow {
+    background:#0a0a0d; border:1px solid #2f2f38; color:#a27791;
+    font-size:22px; cursor:pointer; width:36px; height:36px; padding:0;
+    flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    transition:background 0.15s, color 0.15s, border-color 0.15s;
+    user-select:none; -webkit-user-select:none; line-height:1; align-self:center;
+}
+.carousel-arrow:hover { background:#1a1a22; color:#ffb7c7; border-color:#46464f; }
+
+.swipe-carousel {
+    overflow:hidden; flex-shrink:1; min-width:0;
+}
+.swipe-track { display:flex; transition:transform 0.3s ease; }
 .swipe-slide { flex:0 0 100%; display:flex; align-items:center; justify-content:center; }
 .swipe-slide img {
-    width:100%; max-width:180px; aspect-ratio:1/1; object-fit:contain; image-rendering:pixelated;
+    width:100%; max-width:160px; aspect-ratio:1/1; object-fit:contain; image-rendering:pixelated;
     border:2px solid transparent; border-image:linear-gradient(135deg, #4a1515, #8B3A3A, #a84d6b, #8B3A3A, #4a1515) 1;
-    background:#000;
+    background:#000; pointer-events:none; user-select:none; -webkit-user-select:none;
 }
-.swipe-dots { display:flex; gap:6px; justify-content:center; margin-top:10px; }
-.swipe-dot { width:8px; height:8px; background:#2a2a2a; border:1px solid #4a3040; cursor:pointer; }
-.swipe-dot.active { background:#a84d6b; border-color:#ffb7c7; }
+
+.swipe-dots { display:flex; gap:6px; justify-content:center; align-items:center; margin-top:12px; }
+.swipe-dot {
+    width:6px; height:6px; background:#2a2a2a; border:1px solid #4a3040;
+    cursor:default; transition:background 0.2s, border-color 0.2s;
+}
+.swipe-dot.active { background:#a84d6b; border-color:#ffb7c7; box-shadow:0 0 6px rgba(168,77,107,0.7); }
 
 #wellnessPopup .modal-inner { padding:16px 20px 20px; }
 #wellnessPopup .modal-inner p { font-size:15px!important; line-height:1.7; white-space:pre-wrap; text-align:left; }
@@ -315,178 +361,14 @@ button, a, .universal-btn, .donate-label, [data-modal-trigger], [data-href] { to
     .feed-item, .feed-thumb { width:104px; height:104px; }
     .feed-meta { font-size:10px; }
     .support-modal-inner { min-height:70vh; max-height:80vh; padding:5px; }
+    .tg-forum-tabs { width:56px; min-width:56px; }
+    .tg-forum-tab { padding:10px 2px; }
+    .tg-forum-tab span:first-child { font-size:18px; }
+    .tg-tab-label { font-size:7px; }
+    .tg-tab-content { padding-top:16px; }
 }
 @media (max-width: 480px) {
     #sec-ticker { padding-top:10px; padding-bottom:6px; }
     .archive-img { max-width:56px; max-height:56px; }
     .ticker { animation-duration:180s; }
-}
-
-.swipe-carousel {
-    width: 100%;
-    max-width: 280px;
-    margin: 0 auto;
-    overflow: hidden;
-    touch-action: none;  /* ← важно: отключаем браузерный скролл внутри карусели */
-    cursor: grab;
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-.swipe-carousel:active {
-    cursor: grabbing;
-}
-
-.swipe-track {
-    display: flex;
-    transition: transform 0.3s ease;
-    will-change: transform;
-    touch-action: none;
-}
-
-.swipe-slide {
-    flex: 0 0 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;  /* чтобы не мешало свайпу */
-}
-
-.swipe-slide img {
-    width: 100%;
-    max-width: 180px;
-    aspect-ratio: 1/1;
-    object-fit: contain;
-    image-rendering: pixelated;
-    border: 2px solid transparent;
-    border-image: linear-gradient(135deg, #4a1515, #8B3A3A, #a84d6b, #8B3A3A, #4a1515) 1;
-    background: #000;
-    pointer-events: none;
-}
-
-/* ===== TELEGRAM FORUM TABS ===== */
-.tg-forum-tabs {
-    width: 70px;
-    min-width: 70px;
-    background: #0a0a0d;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid #2f2f38;
-    border-top: 1px solid #2f2f38;      /* ← верхняя линия */
-    overflow-y: auto;
-    max-height: 60vh;
-}
-
-.tg-forum-tab {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 4px;                   /* ← чуть больше воздуха */
-    cursor: pointer;
-    border-bottom: 1px solid #1a1a22;
-    border-left: 3px solid transparent;
-    transition: background 0.15s, border-color 0.15s;
-    gap: 4px;
-}
-
-.tg-forum-tab span:first-child {
-    font-size: 20px;
-    line-height: 1;
-}
-
-.tg-tab-label {
-    font-family: 'Tiny5', monospace;
-    font-size: 9px;
-    color: #6c6c76;
-    text-transform: lowercase;
-    letter-spacing: 0.5px;
-    text-align: center;
-    line-height: 1.2;
-}
-
-.tg-forum-tab:hover {
-    background: #131318;
-    border-left-color: #3d3d48;
-}
-
-.tg-forum-tab.active {
-    background: #131318;
-    border-left: 3px solid #a84d6b;
-}
-
-.tg-forum-tab.active .tg-tab-label {
-    color: #f0f0f2;
-}
-
-/* Контент справа */
-.tg-forum-content {
-    flex: 1;
-    min-width: 0;
-    max-height: 60vh;
-    overflow-y: auto;
-    border-top: 1px solid #2f2f38;      /* ← верхняя линия симметрично */
-}
-
-.tg-tab-content {
-    display: none;
-    padding-top: 20px;                   /* ← отступ сверху, воздух */
-}
-
-.tg-tab-content.active {
-    display: block;
-}
-
-/* Карусель внутри wellness */
-.tg-tab-content .swipe-carousel {
-    padding-top: 0;                      /* убрали, теперь отступ у родителя */
-}
-
-.swipe-dots { display:flex; gap:6px; justify-content:center; margin-top:10px; }
-.swipe-dot { width:6px; height:6px; background:#2a2a2a; border:1px solid #4a3040; cursor:default; }
-.swipe-dot.active { background:#a84d6b; border-color:#ffb7c7; }
-
-/* Адаптация для мобильных */
-@media (max-width: 480px) {
-    .tg-forum-tabs {
-        width: 56px;
-        min-width: 56px;
-    }
-    .tg-forum-tab {
-        padding: 10px 2px;
-    }
-    .tg-forum-tab span:first-child {
-        font-size: 18px;
-    }
-    .tg-tab-label {
-        font-size: 7px;
-    }
-    .tg-tab-content {
-        padding-top: 16px;
-    }
-}
-
-.carousel-arrow {
-    background: #0a0a0d;
-    border: 1px solid #2f2f38;
-    color: #a27791;
-    font-size: 22px;
-    cursor: pointer;
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.15s, color 0.15s;
-    user-select: none;
-    -webkit-user-select: none;
-    line-height: 1;
-    align-self: center;
-}
-
-.carousel-arrow:hover {
-    background: #1a1a22;
-    color: #ffb7c7;
 }
