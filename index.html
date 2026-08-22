@@ -203,6 +203,106 @@
             flex-shrink: 0;
         }
 
+        .telegram-forum-layout {
+            display: flex;
+            min-height: 350px;
+            border-top: 1px solid #25252d;
+            border-bottom: 1px solid #25252d;
+        }
+
+        .forum-tabs-panel-embedded {
+            width: 64px;
+            flex: 0 0 64px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #25252d;
+            background: #09090c;
+        }
+
+        .forum-tab {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 100%;
+            min-height: 58px;
+            padding: 6px 2px;
+            border: 0;
+            border-bottom: 1px solid #25252d;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            font-family: var(--font-secondary);
+        }
+
+        .forum-tab-icon {
+            font-size: 17px;
+            line-height: 1;
+        }
+
+        .forum-tab-label {
+            font-size: 8px;
+            letter-spacing: .5px;
+        }
+
+        .forum-tab.active {
+            color: #fff;
+            background: #1a1720;
+            box-shadow: inset 3px 0 0 #a84d6b;
+        }
+
+        .telegram-forum-main {
+            min-width: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .telegram-forum-main .forum-content-embedded {
+            flex: 1;
+            min-height: 0;
+            position: relative;
+            padding: 0 12px 10px;
+        }
+
+        .drum-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border: 1px solid #3e3e48;
+            background: #09090c;
+            color: #b972a0;
+            cursor: pointer;
+            font-family: var(--font-primary);
+            font-size: 13px;
+            z-index: 3;
+        }
+
+        .drum-nav-btn:hover {
+            border-color: #d88aaa;
+            color: #fff;
+        }
+
+        #drumPrev {
+            left: 12px;
+        }
+
+        #drumNext {
+            right: 12px;
+        }
+
+        .telegram-enter-wrap {
+            display: flex;
+            justify-content: center;
+            padding: 14px 12px 16px;
+        }
+
         /* ===== WELLNESS DRUM (без полос, подписи и стрелок) ===== */
         .wellness-drum-wrap {
             position: relative;
@@ -1361,18 +1461,58 @@
                 <span class="modal-title-text">telegram</span>
                 <button class="modal-close-btn" data-modal="telegramModal">✜</button>
             </div>
-            <div class="modal-inner">
-                <div class="wellness-drum-wrap" id="wellnessDrumWrap">
-                    <div class="drum-scene">
-                        <div class="drum-cylinder" id="drumCylinder"></div>
-                    </div>
-                    <div class="drum-dots" id="drumDots"></div>
-                    <div class="drum-read-btn">
-                        <button class="universal-btn" id="drumReadBtn">
-                            <span class="btn-inner"><span>READ</span></span>
-                        </button>
+            <div class="telegram-forum-layout">
+                <aside class="forum-tabs-panel-embedded" aria-label="Telegram sections">
+                    <button class="forum-tab active" type="button" data-tab="wellness">
+                        <span class="forum-tab-icon">☘</span>
+                        <span class="forum-tab-label">wellness</span>
+                    </button>
+                    <button class="forum-tab" type="button" data-tab="radio">
+                        <span class="forum-tab-icon">♬</span>
+                        <span class="forum-tab-label">radio</span>
+                    </button>
+                    <button class="forum-tab" type="button" data-tab="design">
+                        <span class="forum-tab-icon">◉</span>
+                        <span class="forum-tab-label">design</span>
+                    </button>
+                    <button class="forum-tab" type="button" data-tab="tattoo">
+                        <span class="forum-tab-icon">♥</span>
+                        <span class="forum-tab-label">tattoo</span>
+                    </button>
+                    <button class="forum-tab" type="button" data-tab="diygear">
+                        <span class="forum-tab-icon">⚙</span>
+                        <span class="forum-tab-label">diy gear</span>
+                    </button>
+                    <button class="forum-tab" type="button" data-tab="barbering">
+                        <span class="forum-tab-icon">◒</span>
+                        <span class="forum-tab-label">barbering</span>
+                    </button>
+                </aside>
+                <div class="telegram-forum-main">
+                    <h3 id="forumTitleEmbedded">WELLNESS</h3>
+                    <div class="forum-content-embedded">
+                        <div class="wellness-drum-wrap" id="wellnessDrumWrap">
+                            <button class="drum-nav-btn" id="drumPrev" type="button" aria-label="Previous">◀</button>
+                            <div class="drum-scene">
+                                <div class="drum-cylinder" id="drumCylinder"></div>
+                            </div>
+                            <button class="drum-nav-btn" id="drumNext" type="button" aria-label="Next">▶</button>
+                            <div class="drum-dots" id="drumDots"></div>
+                            <div class="drum-read-btn">
+                                <button class="universal-btn" id="drumReadBtn">
+                                    <span class="btn-inner"><span>READ</span></span>
+                                </button>
+                            </div>
+                        </div>
+                        <p id="forumTextEmbedded" class="text-secondary" style="display:none;"></p>
                     </div>
                 </div>
+            </div>
+            <div class="telegram-enter-wrap">
+                <button class="universal-btn" data-href="https://t.me/+n5Qg8d2h9qliMmRi"
+                    data-modal-close="telegramModal">
+                    <span class="btn-inner"><span>ENTER</span></span>
+                </button>
             </div>
         </div>
     </div>
