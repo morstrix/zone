@@ -785,40 +785,41 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ===== YOUTUBE PLAYER API =====
-let ytPlayer = null;
-let ytPlayerReady = false;
+    let ytPlayer = null;
+    let ytPlayerReady = false;
 
-function onYouTubeIframeAPIReady() {
-    ytPlayerReady = true;
-}
+    window.onYouTubeIframeAPIReady = function() {
+        ytPlayerReady = true;
+    };
 
-const youtubeModal = document.getElementById('youtubeModal');
-youtubeModal?.addEventListener('click', () => {
-    if (youtubeModal.classList.contains('active') && !ytPlayer && ytPlayerReady) {
-        ytPlayer = new YT.Player('ytPlayer', {
-            width: '100%',
-            height: '100%',
-            playerVars: {
-                listType: 'playlist',
-                list: 'PLi1Z1_6srFOvdJ5HrgSMoGpMnpoTrx56_',
-                autoplay: 0,
-                controls: 1,
-                modestbranding: 1,
-                rel: 0,
-                color: 'white',
-                theme: 'dark'
-            },
-            events: {
-                onReady: () => console.log('Плеер готов'),
-                onStateChange: (event) => console.log('Состояние:', event.data)
-            }
-        });
-    }
-});
+    const youtubeModal = document.getElementById('youtubeModal');
+    youtubeModal?.addEventListener('click', () => {
+        if (youtubeModal.classList.contains('active') && !ytPlayer && ytPlayerReady) {
+            ytPlayer = new YT.Player('ytPlayer', {
+                width: '100%',
+                height: '100%',
+                playerVars: {
+                    listType: 'playlist',
+                    list: 'PLi1Z1_6srFOvdJ5HrgSMoGpMnpoTrx56_',
+                    autoplay: 0,
+                    controls: 1,
+                    modestbranding: 1,
+                    rel: 0,
+                    color: 'white',
+                    theme: 'dark'
+                },
+                events: {
+                    onReady: () => console.log('Плеер готов'),
+                    onStateChange: (event) => console.log('Состояние:', event.data)
+                }
+            });
+        }
+    });
 
-document.querySelector('[data-modal="youtubeModal"]')?.addEventListener('click', () => {
-    if (ytPlayer) {
-        ytPlayer.destroy();
-        ytPlayer = null;
-    }
+    document.querySelector('[data-modal="youtubeModal"]')?.addEventListener('click', () => {
+        if (ytPlayer) {
+            ytPlayer.destroy();
+            ytPlayer = null;
+        }
+    });
 });
