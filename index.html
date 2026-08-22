@@ -7,7 +7,6 @@
     <title>MORSTRIX | PORTAL</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 
 <body>
@@ -49,10 +48,6 @@
                 <div class="journal-page" id="sec-info-social">
                     <div class="page-content">
                         <div class="icon-strip">
-                            <button class="icon-action" type="button" data-modal-trigger="twitterModal">
-                                <img src="assets/twit.png" alt="Twitter / X">
-                                <span class="icon-action-label">twitter</span>
-                            </button>
                             <button class="icon-action" type="button" data-modal-trigger="telegramModal">
                                 <span class="icon-action-glyph">tg</span>
                                 <span class="icon-action-label">telegram</span>
@@ -65,14 +60,20 @@
                                 <img src="assets/insta.png" alt="Instagram">
                                 <span class="icon-action-label">insta</span>
                             </a>
-                            <button class="icon-action" type="button" data-modal-trigger="youtubeModal">
-                                <span class="icon-action-glyph">yt</span>
-                                <span class="icon-action-label">youtube</span>
-                            </button>
                             <a href="#" class="icon-action">
                                 <span class="icon-action-glyph">tt</span>
                                 <span class="icon-action-label">tiktok</span>
                             </a>
+                        </div>
+
+                        <div style="text-align:center; margin-top:24px;">
+                            <button class="icon-action" type="button" data-modal-trigger="twitterModal" style="margin:0 auto;">
+                                <img src="assets/twit.png" alt="Twitter / X">
+                                <span class="icon-action-label">twitter</span>
+                            </button>
+                            <p class="text-secondary" style="font-size:11px; color:#888; margin-top:8px; letter-spacing:1px; text-transform:uppercase;">
+                                <span class="blink-dot">◈</span> дайджест екосистеми
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -282,21 +283,6 @@
         </div>
     </div>
 
-    <div id="youtubeModal" class="modal-overlay">
-        <div class="modal-content youtube-modal-content">
-            <div class="modal-header">
-                <span class="modal-title-text">youtube music</span>
-                <button class="modal-close-btn" data-modal="youtubeModal">✜</button>
-            </div>
-            <div class="modal-inner youtube-modal-inner">
-                <div class="youtube-player-wrap" id="ytPlayerWrap">
-                    <div id="ytPlayer"></div>
-                </div>
-                <p class="text-secondary" style="text-align:center; margin-top:12px; font-size:14px;">MORSTRIX music playlist</p>
-            </div>
-        </div>
-    </div>
-
     <div id="telegramModal" class="modal-overlay">
         <div class="modal-content" style="max-width:600px;">
             <div class="modal-header">
@@ -335,36 +321,39 @@
 
                         <div class="tg-tab-content" data-content="radio">
                             <div style="padding:20px; text-align:center;">
-                                <p class="text-secondary" style="font-size:16px;">Музыка, подкасты, плейлисты, эфиры.</p>
-                                <p class="text-secondary" style="font-size:14px; margin-top:12px; color:#666;">Атмосферные подборки в Telegram.</p>
+                                <p class="text-secondary" style="font-size:16px;">Музика, подкасти, плейлисти.</p>
+                                <p class="text-secondary" style="font-size:14px; margin-top:8px; color:#666;">MORSTRIX music playlist</p>
+                                <a href="https://youtube.com/playlist?list=PLi1Z1_6srFOvdJ5HrgSMoGpMnpoTrx56_" target="_blank" class="universal-btn" style="text-decoration:none; margin-top:16px; display:inline-block;">
+                                    <span class="btn-inner"><span>OPEN PLAYLIST</span></span>
+                                </a>
                             </div>
                         </div>
 
                         <div class="tg-tab-content" data-content="design">
                             <div style="padding:20px; text-align:center;">
-                                <p class="text-secondary" style="font-size:16px;">Графический дизайн, типографика, UI, брендинг.</p>
-                                <p class="text-secondary" style="font-size:14px; margin-top:12px; color:#666;">Материалы и обсуждения в Telegram.</p>
+                                <p class="text-secondary" style="font-size:16px;">Графічний дизайн, типографіка, UI, брендинг.</p>
+                                <p class="text-secondary" style="font-size:14px; margin-top:12px; color:#666;">Матеріали та обговорення в Telegram.</p>
                             </div>
                         </div>
 
                         <div class="tg-tab-content" data-content="tattoo">
                             <div style="padding:20px; text-align:center;">
-                                <p class="text-secondary" style="font-size:16px;">Тату-культура, эскизы, мастера, техники.</p>
-                                <p class="text-secondary" style="font-size:14px; margin-top:12px; color:#666;">Архив тату-работ в Telegram.</p>
+                                <p class="text-secondary" style="font-size:16px;">Тату-культура, ескізи, майстри, техніки.</p>
+                                <p class="text-secondary" style="font-size:14px; margin-top:12px; color:#666;">Архів тату-робіт в Telegram.</p>
                             </div>
                         </div>
 
                         <div class="tg-tab-content" data-content="diygear">
                             <div style="padding:20px; text-align:center;">
-                                <p class="text-secondary" style="font-size:16px;">DIY Gear: снаряжение, самоделки, инструменты.</p>
-                                <p class="text-secondary" style="font-size:14px; margin-top:12px; color:#666;">Проекты и гайды в Telegram.</p>
+                                <p class="text-secondary" style="font-size:16px;">DIY Gear: спорядження, саморобки, інструменти.</p>
+                                <p class="text-secondary" style="font-size:14px; margin-top:12px; color:#666;">Проєкти та гайди в Telegram.</p>
                             </div>
                         </div>
 
                         <div class="tg-tab-content" data-content="barbering">
                             <div style="padding:20px; text-align:center;">
-                                <p class="text-secondary" style="font-size:16px;">Барберинг: стиль, инструменты, техники стрижки.</p>
-                                <p class="text-secondary" style="font-size:14px; margin-top:12px; color:#666;">Гайды и примеры в Telegram.</p>
+                                <p class="text-secondary" style="font-size:16px;">Барберинг: стиль, інструменти, техніки стрижки.</p>
+                                <p class="text-secondary" style="font-size:14px; margin-top:12px; color:#666;">Гайди та приклади в Telegram.</p>
                             </div>
                         </div>
                     </div>
