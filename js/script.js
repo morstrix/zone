@@ -782,9 +782,8 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = this.dataset.href;
         });
     });
-});
 
-// ===== YOUTUBE PLAYER API =====
+    // ===== YOUTUBE PLAYER API =====
     let ytPlayer = null;
     let ytPlayerReady = false;
 
