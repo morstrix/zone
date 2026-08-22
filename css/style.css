@@ -372,3 +372,14 @@ button, a, .universal-btn, .donate-label, [data-modal-trigger], [data-href] { to
     .archive-img { max-width:56px; max-height:56px; }
     .ticker { animation-duration:180s; }
 }
+
+.blink-dot {
+    display: inline-block;
+    animation: blinkDot 1.2s steps(2, jump-none) infinite;
+    color: #a84d6b;
+}
+
+@keyframes blinkDot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
