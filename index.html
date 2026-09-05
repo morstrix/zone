@@ -108,16 +108,13 @@
                     </div>
                 </div>
 
-                <div class="journal-page" id="sec-soundstyler">
-                    <div class="page-content">
-                        <div class="text-synth-block">
-                            <div class="tts-title">Text Synth</div>
-                            <input type="text" id="ttsTextInput" class="styler-input" placeholder="TYPE TEXT">
-                            <select id="ttsVoiceSelect" class="styler-input"></select>
-                            <button class="universal-btn" id="ttsSpeakBtn" type="button">
+                              <div class="journal-page" id="sec-soundstyler">
+                    <div class="page-content" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="text-synth-block" style="text-align: center;">
+                            <div class="tts-title" style="margin-bottom: 12px;">Text Synth</div>
+                            <button class="universal-btn" type="button" data-modal-trigger="textSynthModal">
                                 <span class="btn-inner"><span>SPEAK</span></span>
                             </button>
-                            <div id="ttsStatus" style="font-family:'Tiny5',monospace;color:var(--text-secondary);font-size:14px;min-height:18px;"></div>
                         </div>
                     </div>
                 </div>
@@ -404,6 +401,24 @@
             </div>
         </div>
     </div>
+
+<!-- ===== TEXT SYNTH MODAL ===== -->
+<div id="textSynthModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="modal-title-text">TEXT SYNTH</span>
+            <button class="modal-close-btn" data-modal="textSynthModal"></button>
+        </div>
+        <div class="modal-inner" style="display:flex; flex-direction:column; gap:14px; align-items:center; padding: 20px;">
+            <input type="text" id="modalTtsTextInput" class="styler-input" placeholder="TYPE TEXT" style="width:100%;">
+            <select id="modalTtsVoiceSelect" class="styler-input" style="width:100%;"></select>
+            <button class="universal-btn" id="modalTtsSpeakBtn" type="button">
+                <span class="btn-inner"><span>ENTER</span></span>
+            </button>
+            <div id="modalTtsStatus" style="font-family:'Tiny5',monospace;color:var(--text-secondary);font-size:14px;min-height:18px;"></div>
+        </div>
+    </div>
+</div>
 
     <!-- Удалённые модалки (оставляем закомментированными, чтобы не ломались ссылки) -->
     <!--
