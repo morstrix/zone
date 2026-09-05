@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===== UI BLIP =====
+        // ===== UI BLIP (Звук только при закрытии) =====
     const uiBlipAudio = new Audio('assets/blip.mp3');
     uiBlipAudio.preload = 'auto';
     uiBlipAudio.playsInline = true;
@@ -344,21 +344,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.playUiMenuBlip = playUiMenuBlip;
 
-    function openModal(id, withSound = true) {
+    function openModal(id) {
         const modal = document.getElementById(id);
         if (modal) {
             modal.classList.add('active');
             modal.style.display = 'flex';
-            if (withSound) playUiMenuBlip();
         }
     }
+
     function closeModal(id) {
         const modal = document.getElementById(id);
-        if (modal) {
+        if (modal && modal.classList.contains('active')) {
             modal.classList.remove('active');
             modal.style.display = 'none';
+            playUiMenuBlip(); // Звук только при закрытии
         }
     }
+
+    document.querySelectorAll('[data-modal-trigger]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modalId = btn.dataset.modalTrigger;
+            openModal(modalId);
+        });
+    });
+
+    document.querySelectorAll('.modal-close-btn').forEach(b => b.addEventListener('click', () => {
+        const id = b.dataset.modal;
+        if (id) closeModal(id);
+    }));
+    document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => {
+        if (e.target === o) {
+            const modalId = o.id;
+            if (modalId) closeModal(modalId);
+        }
+    }));
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay.active').forEach(m => {
+                if (m.id) closeModal(m.id);
+            });
+        }
+    });
 
     // ===== CAROUSEL (twitter) =====
     const carousel = document.getElementById('mainCarousel');
@@ -504,49 +531,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadCurrentArt();
 
-    // ===== TTS =====
-    const ttsSpeakBtn = document.getElementById('ttsSpeakBtn');
-    const ttsTextInput = document.getElementById('ttsTextInput');
-    const ttsVoiceSelect = document.getElementById('ttsVoiceSelect');
-    const ttsStatus = document.getElementById('ttsStatus');
+        // ===== TTS (MODAL VERSION) =====
+    const modalTtsSpeakBtn = document.getElementById('modalTtsSpeakBtn');
+    const modalTtsTextInput = document.getElementById('modalTtsTextInput');
+    const modalTtsVoiceSelect = document.getElementById('modalTtsVoiceSelect');
+    const modalTtsStatus = document.getElementById('modalTtsStatus');
     let voices = [];
+
     function loadVoices() {
+        if (typeof speechSynthesis === 'undefined') return;
         voices = speechSynthesis.getVoices();
-        if (ttsVoiceSelect) {
-            ttsVoiceSelect.innerHTML = '';
+        if (modalTtsVoiceSelect) {
+            modalTtsVoiceSelect.innerHTML = '';
             voices.forEach(voice => {
                 const option = document.createElement('option');
                 option.value = voice.name;
                 option.textContent = `${voice.lang} - ${voice.name}`;
-                ttsVoiceSelect.appendChild(option);
+                modalTtsVoiceSelect.appendChild(option);
             });
             const ukrVoice = voices.find(v => v.lang.startsWith('uk'));
             const rusVoice = voices.find(v => v.lang.startsWith('ru'));
-            if (ukrVoice) ttsVoiceSelect.value = ukrVoice.name;
-            else if (rusVoice) ttsVoiceSelect.value = rusVoice.name;
+            if (ukrVoice) modalTtsVoiceSelect.value = ukrVoice.name;
+            else if (rusVoice) modalTtsVoiceSelect.value = rusVoice.name;
         }
     }
+
     if (typeof speechSynthesis !== 'undefined') {
         speechSynthesis.onvoiceschanged = loadVoices;
         loadVoices();
     }
+
     function speakWithSpeechSynthesis(text) {
-        if (!text.trim()) { if (ttsStatus) ttsStatus.textContent = 'Введите текст'; return; }
+        if (!text.trim()) { 
+            if (modalTtsStatus) modalTtsStatus.textContent = 'Введите текст'; 
+            return; 
+        }
         speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
-        const selectedVoiceName = ttsVoiceSelect?.value;
+        const selectedVoiceName = modalTtsVoiceSelect?.value;
         if (selectedVoiceName) {
             const voice = voices.find(v => v.name === selectedVoiceName);
             if (voice) utterance.voice = voice;
         }
-        utterance.rate = 1.0; utterance.pitch = 1.0;
-        utterance.onstart = () => { if (ttsStatus) ttsStatus.textContent = '▶ Воспроизведение'; };
-        utterance.onend = () => { if (ttsStatus) ttsStatus.textContent = ''; };
-        utterance.onerror = e => { if (ttsStatus) ttsStatus.textContent = 'Ошибка: ' + e.error; };
+        utterance.rate = 1.0; 
+        utterance.pitch = 1.0;
+        utterance.onstart = () => { if (modalTtsStatus) modalTtsStatus.textContent = '▶ Воспроизведение'; };
+        utterance.onend = () => { if (modalTtsStatus) modalTtsStatus.textContent = ''; };
+        utterance.onerror = e => { if (modalTtsStatus) modalTtsStatus.textContent = 'Ошибка: ' + e.error; };
         speechSynthesis.speak(utterance);
     }
-    if (ttsSpeakBtn) ttsSpeakBtn.addEventListener('click', () => speakWithSpeechSynthesis(ttsTextInput.value));
-    if (ttsTextInput) ttsTextInput.addEventListener('keypress', e => { if (e.key === 'Enter') ttsSpeakBtn?.click(); });
+
+    if (modalTtsSpeakBtn) {
+        modalTtsSpeakBtn.addEventListener('click', () => {
+            speakWithSpeechSynthesis(modalTtsTextInput.value);
+        });
+    }
+
+    if (modalTtsTextInput) {
+        modalTtsTextInput.addEventListener('keypress', e => { 
+            if (e.key === 'Enter') modalTtsSpeakBtn?.click(); 
+        });
+    }
 
     // ===== TOP PLAYERS =====
     async function loadTopPlayers() {
